@@ -52,7 +52,6 @@ Route::middleware('auth')->group( function() {
     //logout 
     Route::get('/logout', [AdminAuthController::class, 'logout']);
     //index page
-    Route::get('/index', [Admin::class, 'index'])->name('index');
     // patients
     Route::get('/patients', [Patients::class, 'index'] )->name('patients');
     Route::get('/patients/profile/{patient}', [Patients::class, 'profile'] )->name('patient.profile'); 

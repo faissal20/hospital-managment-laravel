@@ -114,10 +114,11 @@ class QuestionController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question)
+    public function destroy($id)
     {
+        $question = Question::find($id);
         $user = auth()->user();
-        if($user->patient->id == $question->patient_id || auth()->user()->role == 0 ){
+        if( auth()->user()->role == 0 ){
             $question->destroy($question->id);
             return response('the question deleted successfully');
         }else{

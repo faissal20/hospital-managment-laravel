@@ -10,7 +10,7 @@ use App\Models\Appointment;
 class Appointments extends Controller
 {
     public function index(){
-        return view('appointment.appointments', ['appointments' => Appointment::all() ]);
+        return view('appointment.appointments', ['appointments' => Appointment::latest()->get() ]);
     }
     public function edit($id){
         $appointment = Appointment::find($id);

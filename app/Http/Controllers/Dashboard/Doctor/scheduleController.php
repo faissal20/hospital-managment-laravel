@@ -21,6 +21,7 @@ class scheduleController extends Controller
             $Wed =  Carbon::createFromDate($FDOWeek->year.'-'.$FDOWeek->month.'-'.$FDOWeek->day + 2)->format('Y-m-d');
             $Thu =  Carbon::createFromDate($FDOWeek->year.'-'.$FDOWeek->month.'-'.$FDOWeek->day + 3)->format('Y-m-d');
             $Fri =  Carbon::createFromDate($FDOWeek->year.'-'.$FDOWeek->month.'-'.$FDOWeek->day + 4)->format('Y-m-d');
+            
         }
         else{
             // first day of the week
@@ -36,7 +37,7 @@ class scheduleController extends Controller
             'Tue' => Appointment::where('doctor_id', $doctor->id)->where('status' , '1')->where('date', $Tue )->get(),
             'Wed' => Appointment::where('doctor_id', $doctor->id)->where('status' , '1')->where('date', $Wed )->get(),
             'Thu' => Appointment::where('doctor_id', $doctor->id)->where('status' , '1')->where('date', $Thu )->get(),
-            'Fri' => Appointment::where('doctor_id', $doctor->id)->where('status' , '1')->where('date', $Fri )->get()
+            'Fri' => Appointment::where('doctor_id', $doctor->id)->where('status' , '1')->where('date', $Fri )->get(),
         ]; 
         return view('DoctorView.schedule', ['appointment' => $apps ]);
     }

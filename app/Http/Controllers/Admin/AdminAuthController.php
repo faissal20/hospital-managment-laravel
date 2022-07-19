@@ -27,7 +27,7 @@ class AdminAuthController extends Controller
                 
                 return back()->with('status', 'Invalid login details');
             }
-            return redirect('index');
+            return redirect('Appointments');
         //     $user = User::where('email', $fields['email'])->first();
         //     // check the creds
         //     if( !$user || !hash::check($fields['password'], $user->password)){

@@ -32,7 +32,7 @@
                 </h6>
                 <p class="text-secondary fs-6 text">{{ $ques->created_at->diffForHumans()  }}</p>
                 <h4>
-                    {{ $ques->content }} ?
+                    {{ $ques->content }} 
                 </h4>
             </div>
         @endforeach

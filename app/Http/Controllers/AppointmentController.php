@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Http\Controllers\Controller;
 use App\Mail\CreateAppointmentMail;
+use App\Mail\UpdateAppointmentMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 class AppointmentController extends Controller
 {
     /**
@@ -32,15 +34,22 @@ class AppointmentController extends Controller
 
 
     public  function checkDateAvailability($date, $time, $doctor){
-        
-        $appointment = Appointment::where('date', $date )->where('time', $time)->where('doctor_id', $doctor)->get();
+        $Date = Carbon::createFromDate($date);
+        $dateNum = Carbon::create($date)->isoWeekday();
+        $now = Carbon::now();
+        if( $dateNum == 7|| $Date->dayOfYear() - $now->dayOfYear() <= 0   ){
+            return false;
+        }
+        else{
+            $appointment = Appointment::where('date', $date )->where('time', $time)->where('doctor_id', $doctor)->get();
         if(count($appointment) > 0 ){
             return false;
         }
         else{
             return true;
         }
-    
+        }
+        
     }
     /**}
      * Store a newly created resource in storage.
@@ -61,6 +70,7 @@ class AppointmentController extends Controller
         ]);
         if($this->checkDateAvailability($request->date , $request->time, $request->doctor_id)){
 
+            
             $app = Appointment::where('patient_id',$user->patient->id)->first();
 
             if($app && ($app->status == 0 || $app->status == 1)){
@@ -84,7 +94,7 @@ class AppointmentController extends Controller
             }
         }
         else {
-            return response(['message' => 'you should choose an other day']);
+            return response(['message' => 'you should choose an other day'], 422);
         }
         
           
@@ -128,6 +138,7 @@ class AppointmentController extends Controller
         
         $user = auth()->user();
         $appointment = Appointment::find($id);
+        Mail::to(auth()->user()->email)->send(new UpdateAppointmentMail());
         if( $user->role == 0 ){
             $appointment->status = 1;
             $appointment->save();

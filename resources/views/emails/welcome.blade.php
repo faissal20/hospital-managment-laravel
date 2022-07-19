@@ -1,8 +1,9 @@
+
 @component('mail::message')
 
 Welcome to Our Hospital, Your are now ready to benifit our Services 
 
-@component('mail::button', ['url' => '' ]) 
+@component('mail::button', ['url' => '-' ]) 
 visite us
 @endcomponent
 
