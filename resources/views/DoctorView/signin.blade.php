@@ -24,17 +24,17 @@
 														<label>Email</label><input name='email' value="{{ old('email') }}" class="form-control" placeholder="Enter your email" type="email">
 													</div>
 													@error('email')
-														<div class="alert alert-danger">
+														<p class="text-danger mt-2">
 															{{ $message }}
-														</div>
+														</p>
 													@enderror
 													<div class="form-group">
 														<label>Password</label><input name='password' class="form-control" value="{{ old('password') }}" placeholder="Enter your password" type="password">
 													</div>
 													@error('password')
-														<div class="alert alert-danger">
+														<p class="text-danger mt-2">
 															{{ $message }}
-														</div>
+														</p>
 													@enderror
 													@if (session('status'))
 														<div class="alert alert-danger my-2">
