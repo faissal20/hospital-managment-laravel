@@ -1,4 +1,3 @@
-vendor
 .env.backup
 .env
 .phpunit.result.cache
